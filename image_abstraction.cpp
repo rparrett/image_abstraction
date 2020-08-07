@@ -266,7 +266,7 @@ mat2d ETF(const mat2d& t0, int num_iterations, const Mat& mag) {
     }
 
     Mat lic = tni.LIC();
-    imshow("ETF", lic);
+    //imshow("ETF", lic);
     return tni;
 }
 
@@ -402,7 +402,7 @@ Mat FBL(Mat cur, int num_iterations, mat2d etf) {
         // imwrite("FBL_"+to_string(ni)+"_"+img_name, drawimg64(cur));
 
     }
-    imshow("FBL", cur);
+    //imshow("FBL", cur);
     return cur;
 }
 
@@ -548,7 +548,7 @@ Mat FDoG_iteration(const Mat& img, const mat2d& etf) {
     }
 
     Mat He = Hg.clone();
-    imshow("Hg", He);
+    //imshow("Hg", He);
 
     double sigm = 3.0;
     for(int sn = Hg.rows, i = 0; i < sn; i++) {
@@ -579,11 +579,11 @@ Mat FDoG_iteration(const Mat& img, const mat2d& etf) {
             He.at<double>(i,j) = H/total_weight;
         }
     }
-    imshow("He", He);
+    //imshow("He", He);
 
 
     Mat lines = to_binary(He, 0.997);
-    imshow("Binary", lines);
+    //imshow("Binary", lines);
 
     return lines;
 }
@@ -595,11 +595,11 @@ Mat FDoG(const Mat& input, int num_iterations, mat2d etf) {
         
         cur_lines = FDoG_iteration(cur_input, etf);
 
-        imshow("FDoG_"+to_string(ni)+"_"+img_name, cur_lines);
+        //imshow("FDoG_"+to_string(ni)+"_"+img_name, cur_lines);
         // imwrite("FDoG_"+to_string(ni)+"_"+img_name, drawimg64(cur_lines));
 
         cur_input = min(input, cur_lines);
-        imshow("Humm"+to_string(ni), cur_input);
+        //imshow("Humm"+to_string(ni), cur_input);
     }
     // imshow("FBL", cur);
     return cur_lines;
@@ -611,7 +611,7 @@ int main( int argc, char** argv ) {
     /// Load an image
     img_name = string(argv[1]);
     Mat original = imread( img_name );
-    imshow( "Original", original );
+    //imshow( "Original", original );
 
     if( !original.data ) { return -1; }
 
@@ -636,7 +636,7 @@ int main( int argc, char** argv ) {
 
     // ========== FBL Quantization ==========
     Mat quantized = median_cut_quantization(smoothed, 64);
-    imshow("Quantized", quantized);
+    //imshow("Quantized", quantized);
     imwrite("Quantized_"+string(argv[1]), drawimg64(quantized));
 
     // ========== FDoG Quantization ==========
@@ -657,7 +657,7 @@ int main( int argc, char** argv ) {
                 final.at<Vec3d>(i,j) = Vec3d(0,0,0);
         }
     }
-    imshow("Final", final);
+    //imshow("Final", final);
     imwrite("Final_"+string(argv[1]), drawimg64(final));
 
 
