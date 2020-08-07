@@ -635,7 +635,7 @@ int main( int argc, char** argv ) {
     Mat smoothed = FBL(dcolor, 5, etf);
 
     // ========== FBL Quantization ==========
-    Mat quantized = median_cut_quantization(smoothed, 64);
+    Mat quantized = median_cut_quantization(smoothed, 3);
     //imshow("Quantized", quantized);
     imwrite("Quantized_"+string(argv[1]), drawimg64(quantized));
 
